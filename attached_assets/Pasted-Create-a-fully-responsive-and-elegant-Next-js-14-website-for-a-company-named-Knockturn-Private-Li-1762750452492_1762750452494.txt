@@ -1,0 +1,77 @@
+Create a fully responsive and elegant *Next.js 14* website for a company named *Knockturn Private Limited, a leading **Product Management company based in Chennai, India*.
+
+🧭 The website should include the following pages (with routing using Next.js App Router):
+
+1. *Home Page*
+   - Modern and minimal layout with *3D animated effects* using *Framer Motion* and *Three.js (optional)*.
+   - Color scheme: *Black (#000000)* and *Electric Blue (#007BFF)* with soft gradients.
+   - Hero section: “Empowering Innovation Through Intelligent Product Management.”
+   - Animated 3D shapes, parallax scroll, and a glowing gradient background.
+   - Include call-to-action buttons: “Explore Services” and “Contact Us”.
+   - Add subtle floating animations (geometric shapes or product icons).
+
+2. *About Us Page*
+   - Describe Knockturn Private Limited as a product management and property innovation company in Chennai.
+   - Mention focus areas like innovation, design excellence, and client success.
+   - Include an animated timeline or sliding section to show company milestones.
+
+3. *Client Stories Page*
+   - Interactive carousel or grid of client testimonials.
+   - Use motion cards with hover effects and gradient overlays.
+   - Each story includes client name, project, and feedback.
+
+4. *Services Page*
+   - This page must include the following *subcategories* as separate animated sections:
+     - *Invest Property*
+     - *Commercial Property*
+     - *Residential Property*
+     - *Tenant Property*
+     - *Design Services*
+   - Each service card should have 3D hover/tilt animation and iconography.
+   - Include call-to-action buttons like “Learn More” or “Request a Consultation”.
+
+5. *Insights Page*
+   - A blog-style section showing the latest news, industry updates, and thought leadership articles.
+   - Use parallax scrolling, motion fade-in effects, and glowing blue highlights.
+   - Include dynamic cards with hover scaling effects.
+
+6. *Industries Page*
+   - Display the industries Knockturn serves (Real Estate, Technology, Retail, Infrastructure, etc.).
+   - Add 3D animated icons or tilt cards for each industry.
+   - Include smooth staggered animations using Framer Motion.
+
+7. *Careers Page*
+   - Include sections: “Life at Knockturn,” “Current Openings,” and “Why Join Us”.
+   - Use animated icons, glowing buttons, and gradient cards.
+   - Add a CTA button: “Apply Now.”
+
+8. *Contact Us Page*
+   - Include:
+     - Contact form (Name, Email, Message)
+     - Company address (Chennai, India)
+     - Map (Google Maps Embed)
+     - Email & phone details
+     - *Director:* [Your Name Placeholder]
+     - *Co-Director:* [Your Name Placeholder]
+   - Include social media icons and animated hover effects.
+
+🎨 *Design Style & Animation:*
+- Theme colors: *Black, **Electric Blue, and **Cool White (#E6E6E6)*.
+- Fonts: “Poppins” or “Montserrat”.
+- Use *Framer Motion* for animations (fade-in, scale-up, scroll-triggered animations).
+- Add optional *3D/Parallax background* with Three.js or Lottie animations.
+- Consistent *glassmorphism cards* for a futuristic look.
+- Floating particle background for homepage header.
+- Responsive design for all devices (desktop, tablet, mobile).
+
+⚙ *Technical Requirements:*
+- Framework: *Next.js 14 (App Router)*.
+- Styling: *Tailwind CSS*.
+- Animations: *Framer Motion* (and optional Three.js for subtle 3D).
+- Routing: Create a folder structure for each page under /app/.
+- Include a *reusable Navbar* and *Footer* components in /components/.
+- Add a preloader animation when the website first loads.
+- Store company and contact information in a /data/config.js file.
+- SEO ready with meta tags, favicon, and responsive title.
+
+📁 *Project Folder Structure:*
