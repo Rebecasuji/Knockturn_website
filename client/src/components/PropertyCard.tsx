@@ -14,6 +14,8 @@ interface PropertyCardProps {
   totalPrice: number;
   status: string;
   highlights: string[];
+  contactEmail: string;
+  contactPhone: string;
   index: number;
   onViewDetails: () => void;
 }
@@ -27,6 +29,8 @@ export default function PropertyCard({
   totalPrice,
   status,
   highlights,
+  contactEmail,
+  contactPhone,
   index,
   onViewDetails,
 }: PropertyCardProps) {
@@ -132,6 +136,7 @@ export default function PropertyCard({
               size="icon"
               variant="outline"
               className="hover-elevate"
+              onClick={() => window.location.href = `tel:${contactPhone}`}
               data-testid={`button-contact-${index}`}
             >
               <Phone className="w-4 h-4" />
@@ -140,6 +145,7 @@ export default function PropertyCard({
               size="icon"
               variant="outline"
               className="hover-elevate"
+              onClick={() => window.location.href = `mailto:${contactEmail}`}
               data-testid={`button-email-${index}`}
             >
               <Mail className="w-4 h-4" />

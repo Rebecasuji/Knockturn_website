@@ -24,13 +24,32 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { MapPin, Square, IndianRupee, Calendar, CheckCircle2, Mail, Phone } from "lucide-react";
 
+interface IndustrialProperty {
+  id: number;
+  name: string;
+  city: string;
+  submarket: string;
+  squareFootage: number;
+  pricePerSqFt: number;
+  totalPrice: number;
+  lotSize?: number;
+  status: string;
+  thumbnailUrl: string | null;
+  highlights: string[];
+  contactEmail: string;
+  contactPhone: string;
+  description: string;
+  yearBuilt: number;
+  zoning: string;
+}
+
 export default function IndustrialProperties() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("all");
   const [sqftRange, setSqftRange] = useState([0, 150000]);
   const [priceRange, setPriceRange] = useState([0, 600000000]);
   const [showFilters, setShowFilters] = useState(false);
-  const [selectedProperty, setSelectedProperty] = useState<any>(null);
+  const [selectedProperty, setSelectedProperty] = useState<IndustrialProperty | null>(null);
 
   const filteredProperties = useMemo(() => {
     return mockIndustrialProperties.filter((property) => {
@@ -68,6 +87,14 @@ export default function IndustrialProperties() {
     setSqftRange([0, 150000]);
     setPriceRange([0, 600000000]);
   };
+
+  const hasActiveFilters = 
+    searchQuery !== "" || 
+    selectedStatus !== "all" || 
+    sqftRange[0] !== 0 || 
+    sqftRange[1] !== 150000 ||
+    priceRange[0] !== 0 ||
+    priceRange[1] !== 600000000;
 
   return (
     <div className="min-h-screen pt-32">
@@ -128,7 +155,7 @@ export default function IndustrialProperties() {
                 {showFilters ? "Hide" : "More"} Filters
               </Button>
 
-              {(searchQuery || selectedStatus !== "all") && (
+              {hasActiveFilters && (
                 <Button
                   variant="ghost"
                   className="w-full lg:w-auto gap-2 hover-elevate"

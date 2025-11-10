@@ -17,6 +17,8 @@ export default function PropertyCardExample() {
           "Loading docks with hydraulic lifts",
           "Three-phase power supply"
         ]}
+        contactEmail="sales@knockturn.com"
+        contactPhone="+91 XXX XXX XXXX"
         index={0}
         onViewDetails={() => console.log('View details clicked')}
       />
@@ -34,6 +36,8 @@ export default function PropertyCardExample() {
           "Overhead crane system",
           "Ample parking space"
         ]}
+        contactEmail="sales@knockturn.com"
+        contactPhone="+91 XXX XXX XXXX"
         index={1}
         onViewDetails={() => console.log('View details clicked')}
       />
