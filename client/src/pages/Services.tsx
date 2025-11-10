@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
+import { Link } from "wouter";
 import ServiceCard from "@/components/ServiceCard";
-import { Building2, Home, TrendingUp, Users, Palette } from "lucide-react";
+import { Building2, Home, TrendingUp, Users, Palette, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import commercialImage from "@assets/generated_images/Commercial_property_image_04183835.png";
 import residentialImage from "@assets/generated_images/Residential_property_image_1ee9a9fa.png";
 
@@ -122,6 +124,29 @@ export default function Services() {
               </div>
             </motion.div>
           </div>
+
+          <motion.div
+            className="mt-16 text-center p-12 glassmorphism rounded-md border border-primary/30"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            data-testid="cta-industrial-properties"
+          >
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-gradient">
+              Looking for Industrial Properties?
+            </h2>
+            <p className="text-muted-foreground mb-8 max-w-2xl mx-auto text-lg">
+              Explore our exclusive selection of industrial properties for sale in Chennai.
+              Find the perfect location for your manufacturing, warehouse, or logistics needs.
+            </p>
+            <Link href="/industrial-properties">
+              <Button size="lg" className="gap-2 glow-blue hover:glow-blue-strong" data-testid="button-browse-industrial">
+                Browse Industrial Properties
+                <ArrowRight className="w-5 h-5" />
+              </Button>
+            </Link>
+          </motion.div>
         </div>
       </section>
     </div>
