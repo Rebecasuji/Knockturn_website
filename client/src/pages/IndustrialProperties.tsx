@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
-import { Search, LayoutGrid, List, MapPin, Building2 } from "lucide-react";
+import { Search, LayoutGrid, List, MapPin, Building2, Map } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -24,6 +24,9 @@ import {
 } from "@/components/ui/dialog";
 import { Square, IndianRupee, Calendar, CheckCircle2, Mail, Phone } from "lucide-react";
 import heroImage from "@assets/generated_images/Industrial_property_hero_1d001084.png";
+import warehouseImg1 from "@assets/generated_images/Industrial_warehouse_exterior_0f9ece73.png";
+import manufacturingImg from "@assets/generated_images/Manufacturing_facility_exterior_d551b1cc.png";
+import distributionImg from "@assets/generated_images/Distribution_center_aerial_62429a4e.png";
 
 interface IndustrialProperty {
   id: number;
@@ -49,8 +52,14 @@ export default function IndustrialProperties() {
   const [selectedStatus, setSelectedStatus] = useState("all");
   const [sqftRange, setSqftRange] = useState([0, 150000]);
   const [priceRange, setPriceRange] = useState([0, 600000000]);
-  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const [viewMode, setViewMode] = useState<"grid" | "list" | "map">("grid");
   const [selectedProperty, setSelectedProperty] = useState<IndustrialProperty | null>(null);
+
+  const imageMap: Record<string, string> = {
+    "/src/attached_assets/generated_images/Industrial_warehouse_exterior_0f9ece73.png": warehouseImg1,
+    "/src/attached_assets/generated_images/Manufacturing_facility_exterior_d551b1cc.png": manufacturingImg,
+    "/src/attached_assets/generated_images/Distribution_center_aerial_62429a4e.png": distributionImg,
+  };
 
   const filteredProperties = useMemo(() => {
     return mockIndustrialProperties.filter((property) => {
@@ -257,10 +266,24 @@ export default function IndustrialProperties() {
                   >
                     <List className="w-4 h-4" />
                   </Button>
+                  <Button
+                    variant={viewMode === "map" ? "default" : "outline"}
+                    size="icon"
+                    onClick={() => setViewMode("map")}
+                    data-testid="button-map-view"
+                  >
+                    <Map className="w-4 h-4" />
+                  </Button>
                 </div>
               </div>
 
-              {filteredProperties.length > 0 ? (
+              {viewMode === "map" ? (
+                <MapView
+                  properties={filteredProperties}
+                  onViewDetails={setSelectedProperty}
+                  imageMap={imageMap}
+                />
+              ) : filteredProperties.length > 0 ? (
                 <div className={viewMode === "grid" ? "grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" : "space-y-6"}>
                   {filteredProperties.map((property, index) => (
                     <PropertyListingCard
@@ -269,6 +292,7 @@ export default function IndustrialProperties() {
                       index={index}
                       viewMode={viewMode}
                       onViewDetails={() => setSelectedProperty(property)}
+                      imageMap={imageMap}
                     />
                   ))}
                 </div>
@@ -304,7 +328,260 @@ export default function IndustrialProperties() {
         onClose={() => setSelectedProperty(null)}
         formatPrice={formatPrice}
         formatSqFt={formatSqFt}
+        imageMap={imageMap}
       />
+    </div>
+  );
+}
+
+function MapView({
+  properties,
+  onViewDetails,
+  imageMap,
+}: {
+  properties: IndustrialProperty[];
+  onViewDetails: (property: IndustrialProperty) => void;
+  imageMap: Record<string, string>;
+}) {
+  const [selectedMapProperty, setSelectedMapProperty] = useState<IndustrialProperty | null>(null);
+
+  const submarketPositions: Record<string, { top: string; left: string }> = {
+    "Ambattur Industrial Estate": { top: "35%", left: "42%" },
+    "Sriperumbudur": { top: "55%", left: "25%" },
+    "Oragadam": { top: "58%", left: "30%" },
+    "Mahindra World City": { top: "65%", left: "35%" },
+    "Maraimalai Nagar": { top: "72%", left: "45%" },
+    "Irungattukottai": { top: "50%", left: "32%" },
+    "Gummidipoondi": { top: "20%", left: "48%" },
+    "Thiruvallur": { top: "25%", left: "40%" },
+  };
+
+  if (properties.length === 0) {
+    return (
+      <Card className="glassmorphism border-primary/30">
+        <CardContent className="p-12 text-center">
+          <MapPin className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
+          <h3 className="text-xl font-bold mb-2 text-foreground">No Properties on Map</h3>
+          <p className="text-muted-foreground">
+            Adjust your filters to see properties on the map
+          </p>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  return (
+    <div className="space-y-6">
+      <Card className="glassmorphism border-primary/30 overflow-hidden">
+        <CardContent className="p-0">
+          <div className="bg-card border-b border-border p-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-md bg-primary/20 border border-primary/40 flex items-center justify-center">
+                  <Map className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-foreground">Chennai Industrial Properties Map</h3>
+                  <p className="text-sm text-muted-foreground">
+                    {properties.length} {properties.length === 1 ? 'property' : 'properties'} available
+                  </p>
+                </div>
+              </div>
+              <Badge className="glow-blue">
+                Interactive View
+              </Badge>
+            </div>
+          </div>
+
+          <div className="relative aspect-[16/10] bg-gradient-to-br from-muted/50 to-muted overflow-hidden">
+            <div className="absolute inset-0 opacity-10">
+              <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="0.5"/>
+                  </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#grid)" />
+              </svg>
+            </div>
+
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/10" />
+
+            <div className="absolute top-4 left-4 bg-background/95 backdrop-blur-sm rounded-md p-3 border border-border shadow-lg">
+              <p className="text-xs font-semibold text-foreground mb-1">Chennai Region</p>
+              <p className="text-xs text-muted-foreground">Industrial Zones</p>
+            </div>
+
+            <div className="absolute bottom-4 left-4 bg-background/95 backdrop-blur-sm rounded-md p-3 border border-border shadow-lg">
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-1.5">
+                  <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse" />
+                  <span className="text-xs text-muted-foreground">Available</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <div className="w-3 h-3 rounded-full bg-yellow-500 animate-pulse" />
+                  <span className="text-xs text-muted-foreground">Under Offer</span>
+                </div>
+              </div>
+            </div>
+
+            {properties.map((property, index) => {
+              const position = submarketPositions[property.submarket] || { top: "50%", left: "50%" };
+              const isSelected = selectedMapProperty?.id === property.id;
+              const markerColor = property.status === "available" ? "bg-green-500" : "bg-yellow-500";
+
+              return (
+                <div
+                  key={property.id}
+                  className="absolute transform -translate-x-1/2 -translate-y-1/2 z-10"
+                  style={{ top: position.top, left: position.left }}
+                  data-testid={`map-pin-${index}`}
+                >
+                  <div
+                    className={`relative cursor-pointer transition-all ${
+                      isSelected ? 'scale-125 z-20' : 'hover:scale-110'
+                    }`}
+                    onClick={() => setSelectedMapProperty(isSelected ? null : property)}
+                  >
+                    <div className={`w-8 h-8 rounded-full ${markerColor} border-2 border-white shadow-lg animate-pulse flex items-center justify-center`}>
+                      <Building2 className="w-4 h-4 text-white" />
+                    </div>
+                    <div className="absolute top-0 left-0 w-8 h-8 rounded-full bg-current opacity-25 animate-ping" style={{ animationDuration: '2s' }} />
+                  </div>
+
+                  {isSelected && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="absolute left-1/2 -translate-x-1/2 top-10 w-80 z-30"
+                    >
+                      <Card className="glassmorphism border-primary/50 shadow-2xl">
+                        <CardContent className="p-4">
+                          <div className="flex gap-3">
+                            {property.thumbnailUrl && imageMap[property.thumbnailUrl] && (
+                              <div className="w-24 h-20 flex-shrink-0 rounded-md overflow-hidden">
+                                <img
+                                  src={imageMap[property.thumbnailUrl]}
+                                  alt={property.name}
+                                  className="w-full h-full object-cover"
+                                />
+                              </div>
+                            )}
+                            <div className="flex-1 min-w-0">
+                              <h4 className="font-bold text-foreground text-sm mb-1 line-clamp-1">
+                                {property.name}
+                              </h4>
+                              <p className="text-xs text-muted-foreground mb-2 flex items-center gap-1">
+                                <MapPin className="w-3 h-3" />
+                                {property.submarket}
+                              </p>
+                              <div className="flex items-center justify-between mb-3">
+                                <div>
+                                  <p className="text-xs text-muted-foreground">Area</p>
+                                  <p className="text-sm font-semibold text-foreground">
+                                    {property.squareFootage.toLocaleString()} sq ft
+                                  </p>
+                                </div>
+                                <div className="text-right">
+                                  <p className="text-xs text-muted-foreground">Price</p>
+                                  <p className="text-sm font-semibold text-primary">
+                                    {property.totalPrice >= 10000000
+                                      ? `₹${(property.totalPrice / 10000000).toFixed(2)} Cr`
+                                      : `₹${(property.totalPrice / 100000).toFixed(2)} L`}
+                                  </p>
+                                </div>
+                              </div>
+                              <Button
+                                size="sm"
+                                className="w-full glow-blue hover:glow-blue-strong"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  onViewDetails(property);
+                                }}
+                              >
+                                View Details
+                              </Button>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  )}
+                </div>
+              );
+            })}
+
+            <div className="absolute inset-0 pointer-events-none">
+              <svg width="100%" height="100%" className="text-primary/20">
+                <line x1="20%" y1="35%" x2="80%" y2="65%" stroke="currentColor" strokeWidth="1" strokeDasharray="4,4" />
+                <line x1="30%" y1="20%" x2="60%" y2="80%" stroke="currentColor" strokeWidth="1" strokeDasharray="4,4" />
+              </svg>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        {properties.map((property, index) => (
+          <Card
+            key={property.id}
+            className={`glassmorphism border-primary/30 hover:border-primary/60 transition-all hover-elevate cursor-pointer ${
+              selectedMapProperty?.id === property.id ? 'ring-2 ring-primary' : ''
+            }`}
+            onClick={() => {
+              setSelectedMapProperty(property);
+              onViewDetails(property);
+            }}
+            data-testid={`card-map-property-${index}`}
+          >
+            <CardContent className="p-4">
+              <div className="flex gap-4">
+                {property.thumbnailUrl && imageMap[property.thumbnailUrl] && (
+                  <div className="w-32 h-24 flex-shrink-0 rounded-md overflow-hidden">
+                    <img
+                      src={imageMap[property.thumbnailUrl]}
+                      alt={property.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                )}
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-start gap-2 mb-2">
+                    <MapPin className="w-4 h-4 text-primary flex-shrink-0 mt-1" />
+                    <div className="flex-1 min-w-0">
+                      <h4 className="font-bold text-foreground text-sm line-clamp-1">{property.name}</h4>
+                      <p className="text-xs text-muted-foreground line-clamp-1">{property.submarket}, {property.city}</p>
+                    </div>
+                    <Badge
+                      className={`text-xs ${
+                        property.status === "available"
+                          ? "bg-green-500/20 text-green-400 border-green-500/30"
+                          : "bg-yellow-500/20 text-yellow-400 border-yellow-500/30"
+                      }`}
+                    >
+                      {property.status === "available" ? "Available" : "Under Offer"}
+                    </Badge>
+                  </div>
+                  <div className="flex items-center gap-4 text-xs">
+                    <div>
+                      <p className="text-muted-foreground">Area</p>
+                      <p className="font-semibold text-foreground">{property.squareFootage.toLocaleString()} sq ft</p>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground">Price</p>
+                      <p className="font-semibold text-primary">
+                        {property.totalPrice >= 10000000
+                          ? `₹${(property.totalPrice / 10000000).toFixed(2)} Cr`
+                          : `₹${(property.totalPrice / 100000).toFixed(2)} L`}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
     </div>
   );
 }
@@ -314,11 +591,13 @@ function PropertyListingCard({
   index,
   viewMode,
   onViewDetails,
+  imageMap,
 }: {
   property: IndustrialProperty;
   index: number;
-  viewMode: "grid" | "list";
+  viewMode: "grid" | "list" | "map";
   onViewDetails: () => void;
+  imageMap: Record<string, string>;
 }) {
   const formatPrice = (price: number) => {
     if (price >= 10000000) {
@@ -339,10 +618,10 @@ function PropertyListingCard({
         <Card className="glassmorphism border-primary/30 hover:border-primary/60 transition-all overflow-hidden hover-elevate cursor-pointer" onClick={onViewDetails}>
           <CardContent className="p-0">
             <div className="flex flex-col sm:flex-row">
-              {property.thumbnailUrl && (
+              {property.thumbnailUrl && imageMap[property.thumbnailUrl] && (
                 <div className="sm:w-80 h-48 sm:h-auto flex-shrink-0 overflow-hidden">
                   <img
-                    src={property.thumbnailUrl}
+                    src={imageMap[property.thumbnailUrl]}
                     alt={property.name}
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                   />
@@ -411,10 +690,10 @@ function PropertyListingCard({
       data-testid={`card-property-${index}`}
     >
       <Card className="h-full glassmorphism border-primary/30 hover:border-primary/60 transition-all overflow-hidden hover-elevate cursor-pointer group" onClick={onViewDetails}>
-        {property.thumbnailUrl && (
+        {property.thumbnailUrl && imageMap[property.thumbnailUrl] && (
           <div className="h-56 overflow-hidden">
             <img
-              src={property.thumbnailUrl}
+              src={imageMap[property.thumbnailUrl]}
               alt={property.name}
               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
             />
@@ -469,11 +748,13 @@ function PropertyDetailsDialog({
   onClose,
   formatPrice,
   formatSqFt,
+  imageMap,
 }: {
   property: IndustrialProperty | null;
   onClose: () => void;
   formatPrice: (price: number) => string;
   formatSqFt: (sqft: number) => string;
+  imageMap: Record<string, string>;
 }) {
   if (!property) return null;
 
@@ -503,10 +784,10 @@ function PropertyDetailsDialog({
           </div>
         </DialogHeader>
 
-        {property.thumbnailUrl && (
+        {property.thumbnailUrl && imageMap[property.thumbnailUrl] && (
           <div className="w-full h-96 rounded-md overflow-hidden mb-6">
             <img
-              src={property.thumbnailUrl}
+              src={imageMap[property.thumbnailUrl]}
               alt={property.name}
               className="w-full h-full object-cover"
             />
