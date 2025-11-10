@@ -9,7 +9,7 @@ export const mockIndustrialProperties = [
     totalPrice: 225000000,
     lotSize: 75000,
     status: "available",
-    thumbnailUrl: null,
+    thumbnailUrl: "/src/attached_assets/generated_images/Industrial_warehouse_exterior_0f9ece73.png",
     highlights: [
       "High ceiling clearance (40ft)",
       "Loading docks with hydraulic lifts",
@@ -33,7 +33,7 @@ export const mockIndustrialProperties = [
     totalPrice: 323000000,
     lotSize: 120000,
     status: "available",
-    thumbnailUrl: null,
+    thumbnailUrl: "/src/attached_assets/generated_images/Manufacturing_facility_exterior_d551b1cc.png",
     highlights: [
       "Heavy-duty flooring",
       "Overhead crane system",
@@ -57,7 +57,7 @@ export const mockIndustrialProperties = [
     totalPrice: 504000000,
     lotSize: 180000,
     status: "available",
-    thumbnailUrl: null,
+    thumbnailUrl: "/src/attached_assets/generated_images/Distribution_center_aerial_62429a4e.png",
     highlights: [
       "Multi-level loading bays",
       "Temperature controlled zones",
@@ -81,7 +81,7 @@ export const mockIndustrialProperties = [
     totalPrice: 325000000,
     lotSize: 95000,
     status: "available",
-    thumbnailUrl: null,
+    thumbnailUrl: "/src/attached_assets/generated_images/Industrial_warehouse_exterior_0f9ece73.png",
     highlights: [
       "Clean room facilities",
       "High-tech HVAC systems",
@@ -105,7 +105,7 @@ export const mockIndustrialProperties = [
     totalPrice: 157500000,
     lotSize: 68000,
     status: "under-offer",
-    thumbnailUrl: null,
+    thumbnailUrl: "/src/attached_assets/generated_images/Manufacturing_facility_exterior_d551b1cc.png",
     highlights: [
       "FSSAI approved layout",
       "Cold storage facilities",
@@ -129,7 +129,7 @@ export const mockIndustrialProperties = [
     totalPrice: 302500000,
     lotSize: 82000,
     status: "available",
-    thumbnailUrl: null,
+    thumbnailUrl: "/src/attached_assets/generated_images/Distribution_center_aerial_62429a4e.png",
     highlights: [
       "WHO-GMP compliant",
       "Air handling units",
@@ -153,7 +153,7 @@ export const mockIndustrialProperties = [
     totalPrice: 121600000,
     lotSize: 55000,
     status: "available",
-    thumbnailUrl: null,
+    thumbnailUrl: "/src/attached_assets/generated_images/Industrial_warehouse_exterior_0f9ece73.png",
     highlights: [
       "Flexible floor plan",
       "Good road connectivity",
@@ -177,7 +177,7 @@ export const mockIndustrialProperties = [
     totalPrice: 342000000,
     lotSize: 145000,
     status: "available",
-    thumbnailUrl: null,
+    thumbnailUrl: "/src/attached_assets/generated_images/Manufacturing_facility_exterior_d551b1cc.png",
     highlights: [
       "Large production halls",
       "Water treatment facility",
