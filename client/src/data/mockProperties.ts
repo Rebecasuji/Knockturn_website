@@ -1,9 +1,9 @@
-export const mockIndustrialProperties = [
+/*export const mockIndustrialProperties = [
   {
     id: 1,
-    name: "Premium Industrial Warehouse Complex",
+    //name: "Premium Industrial Warehouse Complex",
     city: "Chennai",
-    submarket: "Ambattur Industrial Estate",
+    //submarket: "Ambattur Industrial Estate",
     squareFootage: 50000,
     pricePerSqFt: 4500,
     totalPrice: 225000000,
@@ -191,4 +191,4 @@ export const mockIndustrialProperties = [
     yearBuilt: 2018,
     zoning: "Textile"
   }
-];
+];*/

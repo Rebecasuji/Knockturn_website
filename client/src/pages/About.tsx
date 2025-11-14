@@ -3,22 +3,16 @@ import { Target, Award, Users, TrendingUp } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
 export default function About() {
-  const milestones = [
-    { year: "2015", title: "Company Founded", description: "Established in Chennai with a vision for innovation" },
-    { year: "2017", title: "100+ Projects", description: "Crossed the milestone of 100 successful projects" },
-    { year: "2020", title: "Industry Recognition", description: "Awarded Best Property Management Company" },
-    { year: "2025", title: "Regional Expansion", description: "Expanding services across South India" },
-  ];
-
   const values = [
-    { icon: Target, title: "Innovation", description: "Pioneering new approaches to property management" },
-    { icon: Award, title: "Excellence", description: "Delivering unmatched quality in every project" },
-    { icon: Users, title: "Client Success", description: "Your success is our primary objective" },
-    { icon: TrendingUp, title: "Growth", description: "Continuous improvement and sustainable development" },
+    { icon: Target, title: "Innovation", description: "Driving creative, technology-enabled solutions across projects, properties, and people management." },
+    { icon: Award, title: "Excellence", description: "Delivering consistent quality and precision in every phase of project, property, and workforce execution." },
+    { icon: Users, title: "Client Success", description: "Building lasting partnerships by aligning our expertise with our clients’ business goals." },
+    { icon: TrendingUp, title: "Growth", description: "Fostering sustainable development and continuous improvement across all service domains." },
   ];
 
   return (
     <div className="min-h-screen pt-32">
+      {/* Hero Section */}
       <section className="py-20" data-testid="section-about-hero">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -31,8 +25,10 @@ export default function About() {
               About Knockturn
             </h1>
             <p className="text-xl text-muted-foreground max-w-4xl mx-auto" data-testid="text-about-description">
-              A leading product management and property innovation company based in Chennai, India,
-              dedicated to transforming the way properties are managed and developed.
+              Knockturn Private Limited is a Chennai-based organization specializing in
+              <span className="font-semibold"> Project Management, Property Management, and Manpower Management</span>.
+              We are dedicated to transforming the way spaces are built, managed, and maintained — with innovation,
+              efficiency, and a people-first approach.
             </p>
           </motion.div>
 
@@ -48,12 +44,13 @@ export default function About() {
                 Our Mission
               </h2>
               <p className="text-muted-foreground mb-4 leading-relaxed" data-testid="text-mission-content">
-                To empower businesses and individuals with intelligent property management solutions
-                that combine innovation, design excellence, and unwavering commitment to client success.
+                To empower clients with intelligent and integrated management solutions across projects,
+                properties, and manpower. We strive to bring together innovation, technical expertise, and
+                operational excellence to deliver sustainable value.
               </p>
               <p className="text-muted-foreground leading-relaxed">
-                We believe in creating sustainable, forward-thinking property solutions that drive
-                value and foster long-term growth for our clients.
+                Our mission is to redefine reliability and transparency in every engagement — whether
+                it’s executing a complex project, maintaining premium properties, or deploying skilled professionals.
               </p>
             </div>
             <div>
@@ -61,18 +58,20 @@ export default function About() {
                 Our Vision
               </h2>
               <p className="text-muted-foreground mb-4 leading-relaxed" data-testid="text-vision-content">
-                To be the most trusted and innovative property management company in India,
-                setting new standards for excellence and transforming the real estate landscape.
+                To be India’s most trusted name in Project, Property, and Manpower Management —
+                known for innovation, integrity, and impact. We aim to create a seamless ecosystem that
+                connects people, processes, and performance.
               </p>
               <p className="text-muted-foreground leading-relaxed">
-                We envision a future where every property interaction is seamless, efficient,
-                and creates lasting value for all stakeholders.
+                Our vision extends beyond management — to build smarter infrastructures,
+                efficient workplaces, and empowered workforces that shape a better tomorrow.
               </p>
             </div>
           </motion.div>
         </div>
       </section>
 
+      {/* Core Values Section */}
       <section className="py-20 bg-card/30" data-testid="section-values">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -85,7 +84,7 @@ export default function About() {
             <h2 className="text-4xl font-bold mb-4 text-gradient" data-testid="text-values-heading">
               Our Core Values
             </h2>
-            <p className="text-xl text-muted-foreground">The principles that guide everything we do</p>
+            <p className="text-xl text-muted-foreground">The guiding principles behind every service we deliver</p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -114,6 +113,7 @@ export default function About() {
         </div>
       </section>
 
+      {/* Journey Section */}
       <section className="py-20" data-testid="section-timeline">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -126,31 +126,26 @@ export default function About() {
             <h2 className="text-4xl font-bold mb-4 text-gradient" data-testid="text-timeline-heading">
               Our Journey
             </h2>
-            <p className="text-xl text-muted-foreground">Key milestones in our growth story</p>
+            <p className="text-xl text-muted-foreground">Milestones that shaped our three-domain excellence</p>
           </motion.div>
 
-          <div className="space-y-8">
-            {milestones.map((milestone, index) => (
-              <motion.div
+          <div className="space-y-6 text-muted-foreground text-justify">
+            {[
+              "Founded in 2024, Knockturn Private Limited began with a mission to bring structure, transparency, and accountability to management practices across multiple domains. Our early focus on Project Management laid the foundation for disciplined execution and quality delivery.",
+              "As we grew, we recognized the need to support property owners and investors through end-to-end Property Management solutions — ensuring seamless maintenance, tenant coordination, and operational optimization.",
+              "Understanding the importance of human capital, we expanded into Manpower Management, supplying skilled professionals to support industries such as construction, facility management, interiors, and corporate services.",
+              "Our integrated approach across these three pillars — Project, Property, and People — has allowed us to deliver unmatched efficiency and value for clients in Chennai and beyond.",
+              "Today, Knockturn stands as a trusted partner in transforming how organizations manage their assets, spaces, and teams — driven by innovation, adaptability, and a deep commitment to client success."
+            ].map((paragraph, index) => (
+              <motion.p
                 key={index}
-                className="flex gap-8 items-start"
-                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.15 }}
-                data-testid={`milestone-${index}`}
+                transition={{ duration: 0.6, delay: index * 0.15 }}
               >
-                <div className="flex-shrink-0 w-24 text-right">
-                  <span className="text-3xl font-bold text-primary">{milestone.year}</span>
-                </div>
-                <div className="flex-shrink-0 w-px h-full bg-primary/30" />
-                <Card className="flex-1 glassmorphism border-primary/30 hover:border-primary/60 transition-all hover-elevate">
-                  <CardContent className="p-6">
-                    <h3 className="text-xl font-bold mb-2 text-foreground">{milestone.title}</h3>
-                    <p className="text-muted-foreground">{milestone.description}</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
+                {paragraph}
+              </motion.p>
             ))}
           </div>
         </div>

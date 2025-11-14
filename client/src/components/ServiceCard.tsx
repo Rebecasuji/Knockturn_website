@@ -8,9 +8,16 @@ interface ServiceCardProps {
   title: string;
   description: string;
   index: number;
+  hideLearnMore?: boolean; // ✅ Added optional prop
 }
 
-export default function ServiceCard({ icon: Icon, title, description, index }: ServiceCardProps) {
+export default function ServiceCard({
+  icon: Icon,
+  title,
+  description,
+  index,
+  hideLearnMore, // ✅ destructured
+}: ServiceCardProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
@@ -31,15 +38,31 @@ export default function ServiceCard({ icon: Icon, title, description, index }: S
           >
             <Icon className="w-10 h-10 text-primary" />
           </motion.div>
-          <h3 className="text-2xl font-bold mb-4 text-foreground" data-testid={`text-service-title-${index}`}>
+
+          <h3
+            className="text-2xl font-bold mb-4 text-foreground"
+            data-testid={`text-service-title-${index}`}
+          >
             {title}
           </h3>
-          <p className="text-muted-foreground mb-6 flex-grow" data-testid={`text-service-description-${index}`}>
+
+          <p
+            className="text-muted-foreground mb-6 flex-grow"
+            data-testid={`text-service-description-${index}`}
+          >
             {description}
           </p>
-          <Button variant="outline" className="hover-elevate w-full" data-testid={`button-learn-more-${index}`}>
-            Learn More
-          </Button>
+
+          {/* ✅ Show Learn More only if hideLearnMore is NOT true */}
+          {!hideLearnMore && (
+            <Button
+              variant="outline"
+              className="hover-elevate w-full"
+              data-testid={`button-learn-more-${index}`}
+            >
+              Learn More
+            </Button>
+          )}
         </CardContent>
       </Card>
     </motion.div>

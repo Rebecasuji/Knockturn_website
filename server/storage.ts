@@ -1,15 +1,24 @@
-import { type User, type InsertUser } from "@shared/schema";
 import { randomUUID } from "crypto";
 
-// modify the interface with any CRUD methods
-// you might need
+// ✅ Define User and InsertUser types here directly (so no missing import)
+export interface User {
+  id: string;
+  username: string;
+  email: string;
+  password: string;
+}
 
+// InsertUser means a user object *before* the id is generated
+export type InsertUser = Omit<User, "id">;
+
+// Interface defining methods for any storage implementation
 export interface IStorage {
   getUser(id: string): Promise<User | undefined>;
   getUserByUsername(username: string): Promise<User | undefined>;
   createUser(user: InsertUser): Promise<User>;
 }
 
+// In-memory storage implementation
 export class MemStorage implements IStorage {
   private users: Map<string, User>;
 
@@ -23,7 +32,7 @@ export class MemStorage implements IStorage {
 
   async getUserByUsername(username: string): Promise<User | undefined> {
     return Array.from(this.users.values()).find(
-      (user) => user.username === username,
+      (user) => user.username === username
     );
   }
 
@@ -35,4 +44,5 @@ export class MemStorage implements IStorage {
   }
 }
 
+// Export an instance of MemStorage
 export const storage = new MemStorage();

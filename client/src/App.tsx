@@ -9,7 +9,7 @@ import Footer from "@/components/Footer";
 import Home from "@/pages/Home";
 import About from "@/pages/About";
 import Services from "@/pages/Services";
-import IndustrialProperties from "@/pages/IndustrialProperties";
+//import IndustrialProperties from "@/pages/IndustrialProperties";
 import Industries from "@/pages/Industries";
 import ClientStories from "@/pages/ClientStories";
 import Insights from "@/pages/Insights";
@@ -23,7 +23,6 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/about" component={About} />
       <Route path="/services" component={Services} />
-      <Route path="/industrial-properties" component={IndustrialProperties} />
       <Route path="/industries" component={Industries} />
       <Route path="/client-stories" component={ClientStories} />
       <Route path="/insights" component={Insights} />

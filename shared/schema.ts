@@ -1,4 +1,4 @@
-import { pgTable, text, serial, integer, timestamp } from "drizzle-orm/pg-core";
+/*import { pgTable, text, serial, integer, timestamp } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -28,4 +28,4 @@ export const insertIndustrialPropertySchema = createInsertSchema(industrialPrope
 });
 
 export type InsertIndustrialProperty = z.infer<typeof insertIndustrialPropertySchema>;
-export type IndustrialProperty = typeof industrialProperties.$inferSelect;
+export type IndustrialProperty = typeof industrialProperties.$inferSelect;*/
