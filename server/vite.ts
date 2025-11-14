@@ -23,7 +23,9 @@ export function log(message: string, source = "express") {
   console.log(`${formattedTime} [${source}] ${message}`);
 }
 
-// Dev: Vite middleware
+// -----------------------
+// 🚀 DEVELOPMENT MODE
+// -----------------------
 export async function setupVite(app: Express, server: Server) {
   const vite = await createViteServer({
     ...viteConfig,
@@ -66,17 +68,24 @@ export async function setupVite(app: Express, server: Server) {
   });
 }
 
-// Prod: serve static build
+// -----------------------
+// 🚀 PRODUCTION MODE
+// -----------------------
 export function serveStatic(app: Express) {
-  const distPath = path.resolve(__dirname, "..", "client", "dist");
+  // Render & Vite build output goes to: dist/public
+  const distPath = path.resolve(__dirname, "public");
 
   if (!fs.existsSync(distPath)) {
     throw new Error(
-      `Could not find the build directory: ${distPath}, make sure to run 'npm run build' in the client folder`
+      `❌ Could not find Vite build directory: ${distPath}\n` +
+      `Make sure your build output is inside "dist/public".`
     );
   }
 
+  // Serve static assets
   app.use(express.static(distPath));
+
+  // Always return index.html
   app.use("*", (_req, res) => {
     res.sendFile(path.resolve(distPath, "index.html"));
   });
